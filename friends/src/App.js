@@ -1,12 +1,18 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import './App.css';
+import Login from "./components/Login";
+import PrivateRoute from './components/PrivateRoute';
+import FriendsList from './components/FriendsList';
 
 function App() {
   return (
-    <div className="App">
-     <Button color="warning">warning</Button>{' '}
-    </div>
+    <Router>
+      <div className="App">
+        <Route component={Login}/>
+        <PrivateRoute exact path="/friends-list" component={FriendsList}/>
+      </div>
+    </Router>
   );
 }
 
