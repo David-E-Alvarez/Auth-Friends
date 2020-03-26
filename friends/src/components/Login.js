@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import axios from "axios";
+import {axiosWithAuth} from "../utils/axiosWithAuth";
 
 const Login = (props) => {
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
     })
+    // const [login, setLogin] = useState(false);
 
     const handleChange = e => {
         console.log(e.target.value);
@@ -14,23 +16,32 @@ const Login = (props) => {
             ...credentials,
             [e.target.name]: e.target.value
         })
+      
     }
+
+
+    // useEffect(() => {
+    //     let token = localStorage.getItem('token')
+    //     if(token){
+    //         setLogin(true)
+    //     }
+    // }, [])
 
     const login = e => {
         e.preventDefault();
-        axios
-            .post("http://localhost:5000/api/login", credentials)
+        axiosWithAuth()
+            .post("/api/login", credentials)
             .then(res => {
                 console.log("res.data.token: ", res.data.payload);
                 console.log("res: ", res)
                 localStorage.setItem('token', res.data.payload);
+                // if(token){
+                //     setLogin(true);
+                // }
                 props.history.push('/friends-list');
               })
               .catch(err => console.log(err.response));
-        setCredentials({
-            username: "",
-            password: ""
-        })
+       
     }
 
     return(
