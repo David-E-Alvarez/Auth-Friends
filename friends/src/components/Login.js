@@ -46,7 +46,6 @@ const Login = (props) => {
 
     return(
         <div>
-            <h1>Form will go here(Login.js)</h1>
             <Form onSubmit={login}>
                 <FormGroup>
                     <Label for="Username"/>
